@@ -24,7 +24,7 @@ class UserController {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
             const { nombre, apellido, email, password } = req.body;
-            firebase_1.default.auth().createUserWithEmailAndPassword(email, password)
+            yield firebase_1.default.auth().createUserWithEmailAndPassword(email, password)
                 .then(() => {
                 database_1.default.ref('usuarios').set({
                     nombre: nombre,
@@ -40,6 +40,21 @@ class UserController {
                 var errorMessage = error.message;
                 console.log(errorCode, errorMessage);
                 res.json(errorMessage);
+                // ...
+            });
+        });
+    }
+    // AUTENTICAR USUARIO
+    authenticate(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { email, password } = req.body;
+            yield firebase_1.default.auth().signInWithEmailAndPassword(email, password)
+                .then(() => res.status(200).json({ message: 'Usuario autorizado' }))
+                .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorMessage);
                 // ...
             });
         });

@@ -23,7 +23,7 @@ class Server {
     }
     routes() {
         this.app.use('/', index_routes_1.default);
-        this.app.use('/', user_routes_1.default);
+        this.app.use('/api/user/', user_routes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {

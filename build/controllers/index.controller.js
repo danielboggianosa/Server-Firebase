@@ -22,6 +22,7 @@ class UserController {
     //READ ALL
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            res.json({ Mensaje: 'listando index' });
         });
     }
     //READ 1

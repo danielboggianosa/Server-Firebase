@@ -13,6 +13,7 @@ class UserController {
 
     //READ ALL
     public async list (req: Request, res: Response) {
+        res.json({Mensaje:'listando index'})
     }
     //READ 1
     public async getOne (req: Request, res: Response): Promise<any> {

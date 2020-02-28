@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import firebase from '../database/firebase';
-import admin from '../database/database';
 import database from '../database/database';
 
 class UserController {
@@ -13,7 +12,7 @@ class UserController {
     public async create (req: Request, res: Response): Promise<void> {
         console.log(req.body);
         const {nombre, apellido, email, password} = req.body;
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+        await firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(
             ()=>{
                 database.ref('usuarios').set({
@@ -31,6 +30,20 @@ class UserController {
             var errorMessage = error.message;
             console.log(errorCode, errorMessage);
             res.json(errorMessage);
+            // ...
+          });
+    }
+
+    // AUTENTICAR USUARIO
+    public async authenticate (req: Request, res: Response) {
+        const {email, password} = req.body;
+        await firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(()=>res.status(200).json({message:'Usuario autorizado'}))
+        .catch(function(error:any) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorMessage);
             // ...
           });
     }

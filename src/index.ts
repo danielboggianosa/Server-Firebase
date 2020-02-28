@@ -25,7 +25,7 @@ import cors from 'cors';
 
     routes(): void {        
         this.app.use('/',indexRoutes);
-        this.app.use('/',userRoutes);
+        this.app.use('/api/user/',userRoutes);
     }
 
     start(): void {
